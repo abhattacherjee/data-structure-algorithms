@@ -1,3 +1,5 @@
+const Node = require("./node");
+
 /**
  * Given a binary tree, traverse through the tree and return results
  * as array of levels
@@ -43,15 +45,25 @@ function traverseBFS(root) {
   return { res, maxWidth, widestLevel };
 }
 
+function simpleBFSTraversal(root) {
+  let queue = [root];
+  let result = [];
+
+  while (queue.length) {
+    let curr = queue.shift();
+    result.push(curr.value);
+
+    if (curr.left) queue.push(curr.left);
+    if (curr.right) queue.push(curr.right);
+  }
+  return result;
+}
+
 /**
  * Given a root node, find the closest widest level
  * @param root
  */
 function calculateWidestLevel(root) {}
-
-function Node(value) {
-  this.value = value;
-}
 
 const node1 = new Node(1);
 const node2 = new Node(2);
@@ -74,3 +86,6 @@ node3.right = node7;
 const { res, maxWidth, widestLevel } = traverseBFS(node1);
 
 console.log("BFS:", res, "Max width:", maxWidth, "Widest level:", widestLevel);
+
+const result = simpleBFSTraversal(node1);
+console.log(result);
